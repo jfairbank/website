@@ -1,0 +1,394 @@
+[
+  {
+    "name": "Elm Conf 2017",
+    "url": "https://www.elm-conf.us/",
+    "location": "St. Louis, MO",
+    "talks": [
+      {
+        "title": "Solving the Boolean Identity Crisis",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/elm-conf-2017-solving-the-boolean-identity-crisis",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"fea227b8a1e24120a028c178cf8750ac\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=8Af1bh-BVY8"
+      }
+    ]
+  },
+  {
+    "name": "Connect.Tech 2017",
+    "url": "http://connect.tech/",
+    "location": "Atlanta, GA",
+    "talks": [
+      {
+        "title": "Functional Web with Elm",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connect-dot-tech-2017-functional-web-with-elm",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"6b956fe4afb045d58b6f5d461c76f9cf\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "Get Started with Redux",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connect-dot-tech-2017-get-started-with-redux",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"feac6253f78c4a579ed18a352bedd8b8\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "Dive into RxJS Observables",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connect-dot-tech-2017-dive-into-rxjs-observables",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"a351fcd8d7624c3b82bdea451ac743d4\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "Scenic City Summit 2017",
+    "url": "https://www.sceniccitysummit.com/",
+    "location": "Chattanooga, TN",
+    "talks": [
+      {
+        "title": "Get Started with Redux",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/scenic-city-summit-2017-get-started-with-redux",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"5a623d24a32740759a64aae08f52adb5\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=hDe_rzWlGtI"
+      },
+      {
+        "title": "Tame the frontend with Elm",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/scenic-city-summit-2017-tame-the-frontend-with-elm",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"b84ad61763a444588cb08befe3a80716\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "Fluent Conf 2017",
+    "url": "https://conferences.oreilly.com/fluent/fl-ca",
+    "location": "San Jose, CA",
+    "talks": [
+      {
+        "title": "Tame the frontend with Elm",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/fluent-conf-2017-tame-the-frontend-with-elm",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"df3fd538001f49308a9e3a06d9c6c333\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=D740qUZVcr4"
+      }
+    ]
+  },
+  {
+    "name": "CodeStock 2017",
+    "url": "http://www.codestock.org/",
+    "location": "Knoxville, TN",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codestock-2017-functional-programming-basics-in-es6",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"bbf82db06e9343558554feb5022ce10d\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "JazzCon 2017",
+    "url": "http://jazzcon.tech/",
+    "location": "New Orleans, LA",
+    "talks": [
+      {
+        "title": "Building Web Apps with Elm Workshop",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/jazzcon-2017-building-web-apps-with-elm-workshop",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"c81adbb16cbd4859b809552236743573\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "State, Side Effects, and Redux. Oh my!",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/jazzcon-2017-state-side-effects-and-redux-oh-my",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"f0ceb197e9cf4a469d7bc6cd6ca783ae\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "The Rise of Async JavaScript",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/jazzcon-2017-the-rise-of-async-javascript",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"6b9888dfe50d4c81bd5c0ce3812ddd61\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=tm9BBx99vvM"
+      }
+    ]
+  },
+  {
+    "name": "DevNexus 2017",
+    "url": "https://devnexus.com/",
+    "location": "Atlanta, GA",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/devnexus-2017-functional-programming-basics-in-es6",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"2c33f06ab9c24411a673599dae76a84e\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "The Rise of Async JavaScript",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/devnexus-2017-the-rise-of-async-javascript",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"c68eadb8aaf444f39618b89f20058e60\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "CodeMash 2017",
+    "url": "http://www.codemash.org/",
+    "location": "Sandusky, OH",
+    "talks": [
+      {
+        "title": "Toward a Better Front End Architecture: Elm",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codemash-2017-toward-a-better-front-end-architecture-elm",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"7ced46a920dd4ab09dcc0914d7ae59ac\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=EDp6UmaA9CM"
+      }
+    ]
+  },
+  {
+    "name": "Scenic City Summit 2016",
+    "url": "http://www.sceniccitysummit.com/",
+    "location": "Chattanooga, TN",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/scenic-city-summit-functional-programming-basics-in-es6",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"82dc2a7d56d94b2490b84a3ddc017383\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=HvMemAgOw6I"
+      }
+    ]
+  },
+  {
+    "name": "CodeStock 2016",
+    "url": "http://www.codestock.org/",
+    "location": "Knoxville, TN",
+    "talks": [
+      {
+        "title": "Bundle the Web with Webpack",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codestock-bundle-the-web-with-webpack",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"c2786583c8224f4782226b974c243543\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=JZvE-corSmY"
+      }
+    ]
+  },
+  {
+    "name": "RailsConf 2016",
+    "url": "http://www.railsconf.com/",
+    "location": "Kansas City, MO",
+    "talks": [
+      {
+        "title": "Pat Packet Visits Ruby Rails",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/railsconf-2016-pat-packet-visits-ruby-rails",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"0525898a440649588e2b0c409c47a95a\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=5N--xAEtGbo"
+      }
+    ]
+  },
+  {
+    "name": "Fluent Conf 2016",
+    "url": "http://conferences.oreilly.com/fluent/javascript-html-us",
+    "location": "San Francisco, CA",
+    "talks": [
+      {
+        "title": "The Rise of Async JavaScript",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/fluent-conf-rise-of-async-javascript",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"44e66e1df99a48dd8a8cff77fdb7f6c8\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=QtgR94Q2pt4"
+      }
+    ]
+  },
+  {
+    "name": "JavaScript Summit 2016",
+    "url": "http://environmentsforhumans.com/2016/javascript-summit",
+    "location": "Online",
+    "talks": [
+      {
+        "title": "ES7 and Beyond!",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/js-summit-es7-and-beyond",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"3566ac779b124e6d83f0c8600f899614\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "Modular React and Redux",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/js-summit-modular-react-and-redux",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"9b5149ec33ff42bd89ab9e24a798dca3\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "CodeMash 2016",
+    "url": "https://www.codemash.org",
+    "location": "Sandusky, OH",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codemash-functional-programming-basics-in-es6",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"c6ddba41fc8042a8862c921ddbc3ac26\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "Nodevember '15",
+    "url": "http://www.nodevember.org",
+    "location": "Nashville, TN",
+    "talks": [
+      {
+        "title": "Orchestrating Apps by Composing Angular Directives",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/nodevember-orchestrating-apps-by-composing-angular-directives",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"7ef4ed4d7bb9496eae7b661c8809f404\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=uS3IrNVam6Q"
+      }
+    ]
+  },
+  {
+    "name": "HTML5DevConf Autumn 2015",
+    "url": "http://html5devconf.com",
+    "location": "San Francisco, CA",
+    "talks": [
+      {
+        "title": "ES7 and Beyond!",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/html5devconf-es7-and-beyond",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"bdad642f76164b738cb49551f5a6309f\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=ZjzgX62NHpc"
+      }
+    ]
+  },
+  {
+    "name": "ConnectJS 2015",
+    "url": "http://connect-js.com",
+    "location": "Atlanta, GA",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connectjs-functional-programming-basics-in-es6",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"4c63e813bd604455a01a78c1e9e315bc\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=bsD81gqubow"
+      },
+      {
+        "title": "Orchestrating Apps by Composing Angular Directives",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connectjs-orchestrating-apps-by-composing-angular-directives",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"4a8e69cdf459472a8bf4e17964a6152d\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=9mPrlJNuaIw"
+      },
+      {
+        "title": "Dynamically Sassy",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/connectjs-dynamically-sassy",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"5fd922cbfea443bda885b77c54c15697\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/watch?v=c-oAGu1pZqo"
+      }
+    ]
+  },
+  {
+    "name": "Music City Code 2015",
+    "url": "http://www.musiccitycode.com",
+    "location": "Nashville, TN",
+    "talks": [
+      {
+        "title": "ES7 and Beyond!",
+        "slidesUrl": "https://speakerdeck.com/jfairbank/es7-and-beyond",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"f622eaec70154e118d23396447106a3b\" data-ratio=\"1.77777777777778\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "CodeStock 2015",
+    "url": "http://www.codestock.org/",
+    "location": "Knoxville, TN",
+    "talks": [
+      {
+        "title": "Functional Programming Basics in ES6",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codestock-functional-programming-basics-in-javascript",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"2400cb25f719489fabd1a67e02d3ff7f\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      },
+      {
+        "title": "Orchestrating Apps by Composing Angular Directives",
+        "slidesUrl":
+          "https://speakerdeck.com/jfairbank/codestock-orchestrating-apps-by-composing-angular-directives",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"ba9d758e4e85416681537b563da30908\" data-ratio=\"1.33333333333333\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": null
+      }
+    ]
+  },
+  {
+    "name": "RailsConf 2015",
+    "url": "http://www.railsconf.com/",
+    "location": "Atlanta, GA",
+    "talks": [
+      {
+        "title": "Dynamically Sassy",
+        "slidesUrl": "https://speakerdeck.com/jfairbank/dynamically-sassy",
+        "slidesEmbed":
+          "<script async class=\"speakerdeck-embed\" data-id=\"2eb423a377714fe4bff30318e207b259\" data-ratio=\"1.37081659973226\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "videoUrl": "https://www.youtube.com/embed/ouGWyZfGZ8M"
+      }
+    ]
+  },
+  {
+    "name": "Nodevember '14",
+    "url": "http://www.nodevember.org",
+    "location": "Nashville, TN",
+    "talks": [
+      {
+        "title":
+          "Building Modular and Component Driven Architecture in Backbone.js and Marionette.js",
+        "slidesUrl": "https://speakerdeck.com/jfairbank/dynamically-sassy",
+        "slidesEmbed": null,
+        "videoUrl": "https://www.youtube.com/watch?v=PrQSpdWkN6Q"
+      }
+    ]
+  }
+]
