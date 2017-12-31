@@ -1,7 +1,24 @@
 module Layout exposing (view)
 
-import Element exposing (Element, button, el, html, layout, link, mainContent, navigation, navigationColumn, newTab, row, sidebar, text)
-import Element.Attributes exposing (center, fill, height, maxWidth, padding, paddingLeft, px, spacing, width)
+import Element
+    exposing
+        ( Element
+        , button
+        , column
+        , el
+        , html
+        , image
+        , layout
+        , link
+        , mainContent
+        , navigation
+        , navigationColumn
+        , newTab
+        , row
+        , sidebar
+        , text
+        )
+import Element.Attributes exposing (center, fill, height, padding, paddingXY, px, spacing, width)
 import Element.Events exposing (onClick)
 import Html exposing (Html, i)
 import Html.Attributes exposing (class)
@@ -65,21 +82,43 @@ viewSocialLinks =
         }
 
 
-viewSidebar : Element Style variation Msg
-viewSidebar =
+viewProgrammingElmAd : String -> Element Style variation msg
+viewProgrammingElmAd programmingElmBetaUrl =
+    let
+        bookLink =
+            link "https://pragprog.com/book/jfelm/programming-elm"
+    in
+    column ProgrammingElmSideAd
+        [ center, spacing 10 ]
+        [ bookLink <|
+            image None
+                [ width (px 140) ]
+                { caption = "Programming Elm Beta Cover"
+                , src = programmingElmBetaUrl
+                }
+        , text "Programming Elm now in Beta"
+        , el ProgrammingElmSideAdButton [ paddingXY 10 8 ] <|
+            bookLink <|
+                text "Buy Now!"
+        ]
+
+
+viewSidebar : String -> Element Style variation Msg
+viewSidebar programmingElmBetaUrl =
     sidebar Sidebar
         [ padding 20, spacing 20, width (px 250) ]
         [ viewBrand
         , viewNav
         , viewSocialLinks
+        , viewProgrammingElmAd programmingElmBetaUrl
         ]
 
 
-view : Element Style variation Msg -> Html Msg
-view child =
+view : String -> Element Style variation Msg -> Html Msg
+view programmingElmBetaUrl child =
     layout stylesheet <|
         row None
             [ height fill ]
-            [ viewSidebar
+            [ viewSidebar programmingElmBetaUrl
             , mainContent MainContent [ padding 20 ] child
             ]

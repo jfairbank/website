@@ -14,6 +14,7 @@ import Update exposing (Msg(..), update)
 
 type alias Flags =
     { avatarUrl : String
+    , programmingElmBetaUrl : String
     , conferences : List Conference
     }
 
@@ -25,6 +26,7 @@ init flags location =
             parseLocation location
     in
     ( { avatarUrl = flags.avatarUrl
+      , programmingElmBetaUrl = flags.programmingElmBetaUrl
       , conferences = flags.conferences
       , route = route
       }
@@ -36,16 +38,16 @@ view : Model -> Html Msg
 view model =
     case model.route of
         Just Home ->
-            Pages.viewHome model.avatarUrl
+            Pages.viewHome model.programmingElmBetaUrl model.avatarUrl
 
         Just Talks ->
-            Pages.viewTalks model.conferences
+            Pages.viewTalks model.programmingElmBetaUrl model.conferences
 
         Just Books ->
-            Pages.viewBooks
+            Pages.viewBooks model.programmingElmBetaUrl
 
         Nothing ->
-            Layout.view
+            Layout.view model.programmingElmBetaUrl
                 (text "404 Not Found")
 
 

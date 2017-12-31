@@ -12,17 +12,18 @@ import Styles exposing (Style(..))
 import Update exposing (Msg)
 
 
-viewHome : String -> Html Msg
-viewHome avatarUrl =
-    Layout.view <|
+viewHome : String -> String -> Html Msg
+viewHome programmingElmBetaUrl avatarUrl =
+    Layout.view programmingElmBetaUrl <|
         el None [ center ] (Home.view avatarUrl)
 
 
-viewTalks : List Conference -> Html Msg
-viewTalks =
-    Layout.view << Talks.view
+viewTalks : String -> List Conference -> Html Msg
+viewTalks programmingElmBetaUrl =
+    Layout.view programmingElmBetaUrl
+        << Talks.view
 
 
-viewBooks : Html Msg
-viewBooks =
-    Layout.view Books.view
+viewBooks : String -> Html Msg
+viewBooks programmingElmBetaUrl =
+    Layout.view programmingElmBetaUrl Books.view

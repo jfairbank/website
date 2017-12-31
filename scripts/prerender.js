@@ -23,23 +23,24 @@ const elmStaticHtmlDir = path.resolve(rootPath, '.elm-static-html')
 const elmPackage = path.resolve(rootPath, 'elm-package.json')
 const buildDir = path.resolve(rootPath, 'build')
 
+const programmingElmBetaUrl = manifest['static/media/programming-elm-beta.jpg']
 const avatarUrl = manifest['static/media/avatar.png']
 
 const pages = [
   {
     title: 'Pages.Home.title',
-    view: 'Pages.viewHome',
+    view: 'Prerender.viewHome',
     outFile: path.join(buildDir, 'index.html'),
-    model: avatarUrl,
-    decoder: 'Json.Decode.string',
+    model: { programmingElmBetaUrl, avatarUrl },
+    decoder: 'Prerender.decodeHome',
   },
 
   {
     title: 'Pages.Talks.title',
-    view: 'Pages.viewTalks',
+    view: 'Prerender.viewTalks',
     outFile: path.join(buildDir, 'talks.html'),
-    model: conferences,
-    decoder: 'Data.Conference.decodeConferences',
+    model: { programmingElmBetaUrl, conferences },
+    decoder: 'Prerender.decodeTalks',
   },
 ]
 

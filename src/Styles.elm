@@ -1,7 +1,8 @@
 module Styles exposing (Style(..), stylesheet)
 
-import Color exposing (blue, rgb, rgba)
+import Color exposing (blue, rgb, rgba, white)
 import Style exposing (StyleSheet, prop, style)
+import Style.Border as Border
 import Style.Color as Color
 import Style.Font as Font
 
@@ -9,6 +10,8 @@ import Style.Font as Font
 type Style
     = None
     | Sidebar
+    | ProgrammingElmSideAd
+    | ProgrammingElmSideAdButton
     | Brand
     | MainContent
     | ButtonLink
@@ -36,6 +39,18 @@ stylesheet =
             [ Color.background (rgb 241 241 241)
             , Font.size 20
             , fontSourceSansPro
+            ]
+        , style ProgrammingElmSideAd
+            [ Font.size 16
+            , fontSourceSansPro
+            , prop "margin-bottom" "60px !important"
+            , prop "margin-top" "auto !important"
+            ]
+        , style ProgrammingElmSideAdButton
+            [ Border.rounded 4
+            , Color.background blue
+            , Color.text white
+            , Font.size 18
             ]
         , style Brand
             [ Font.size 26
