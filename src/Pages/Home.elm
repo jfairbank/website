@@ -1,6 +1,6 @@
 module Pages.Home exposing (view)
 
-import Element exposing (Element, column, el, hairline, image, text)
+import Element exposing (Element, column, el, image, text)
 import Element.Attributes exposing (center, px, spacing, width)
 import Styles exposing (Style(..))
 
@@ -16,5 +16,4 @@ view avatarUrl =
             }
         , el HomeName [] (text "Jeremy Fairbank")
         , el HomeTagline [] (text "Developer. Speaker. Author.")
-        , hairline None
         ]
