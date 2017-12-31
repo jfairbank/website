@@ -1,10 +1,15 @@
-module Pages.Talks exposing (view)
+module Pages.Talks exposing (title, view)
 
 import Data.Conference exposing (Conference)
 import Data.Talk exposing (Talk)
 import Element exposing (Element, column, el, h1, h2, h3, newTab, row, text, whenJust)
 import Element.Attributes exposing (padding, paddingBottom, spacing)
 import Styles exposing (Style(..))
+
+
+title : String
+title =
+    "Conference Talks"
 
 
 viewLink : String -> String -> Element Style variation msg

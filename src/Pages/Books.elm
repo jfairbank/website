@@ -1,6 +1,11 @@
-module Pages.Books exposing (view)
+module Pages.Books exposing (title, view)
 
 import Element exposing (Element, text)
+
+
+title : String
+title =
+    "Books"
 
 
 view : Element style variation msg

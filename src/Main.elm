@@ -6,6 +6,7 @@ import Element exposing (text)
 import Html exposing (Html)
 import Layout
 import Navigation exposing (Location)
+import PageTitle
 import Pages
 import Routes exposing (Route(..), parseLocation)
 import Update exposing (Msg(..), update)
@@ -19,11 +20,15 @@ type alias Flags =
 
 init : Flags -> Location -> ( Model, Cmd Msg )
 init flags location =
+    let
+        route =
+            parseLocation location
+    in
     ( { avatarUrl = flags.avatarUrl
       , conferences = flags.conferences
-      , route = parseLocation location
+      , route = route
       }
-    , Cmd.none
+    , PageTitle.update route
     )
 
 

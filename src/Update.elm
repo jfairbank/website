@@ -2,6 +2,7 @@ module Update exposing (Msg(..), update)
 
 import Data.Model exposing (Model)
 import Navigation exposing (Location)
+import PageTitle
 import Routes exposing (parseLocation)
 
 
@@ -14,8 +15,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NewUrl location ->
-            ( { model | route = parseLocation location }
-            , Cmd.none
+            let
+                route =
+                    parseLocation location
+            in
+            ( { model | route = route }
+            , PageTitle.update route
             )
 
         Visit url ->

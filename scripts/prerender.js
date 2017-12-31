@@ -6,8 +6,17 @@ const elmStaticHtml = require('elm-static-html-lib').default
 const cheerio = require('cheerio')
 const manifest = require('../build/webpack-assets.json')
 const conferences = require('../src/conferences.json')
+const childProcess = require('child_process')
+const { createHash } = require('crypto')
 
 const writeFile = util.promisify(fs.writeFile)
+const deleteFile = util.promisify(fs.unlink)
+
+const spawn = (...args) => new Promise((resolve, reject) => {
+  const process = childProcess.spawn(...args)
+  process.stdout.on('data', resolve)
+  process.stderr.on('data', reject)
+})
 
 const rootPath = path.resolve(__dirname, '../')
 const elmStaticHtmlDir = path.resolve(rootPath, '.elm-static-html')
@@ -18,6 +27,7 @@ const avatarUrl = manifest['static/media/avatar.png']
 
 const pages = [
   {
+    title: 'Pages.Home.title',
     view: 'Pages.viewHome',
     outFile: path.join(buildDir, 'index.html'),
     model: avatarUrl,
@@ -25,6 +35,7 @@ const pages = [
   },
 
   {
+    title: 'Pages.Talks.title',
     view: 'Pages.viewTalks',
     outFile: path.join(buildDir, 'talks.html'),
     model: conferences,
@@ -37,7 +48,7 @@ const baseOptions = {
   indent: 0,
 }
 
-function addLinkAndScript($) {
+function addLinkAndScript(title, $) {
   const $body = $('body')
   const $children = $body.children()
   const $root = $('<div id="root"></div>')
@@ -49,7 +60,7 @@ function addLinkAndScript($) {
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="theme-color" content="#000000">
-      <title>Jeremy Fairbank</title>
+      <title>${title}</title>
       <link rel="stylesheet" href="https://use.fontawesome.com/102743fa7d.css">
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,700" rel="stylesheet">
     `)
@@ -63,14 +74,61 @@ function addLinkAndScript($) {
   return $
 }
 
+const portSubscribe = port => new Promise((resolve) => port.subscribe(resolve))
 
-Promise.all(
-  pages.map(({ view, outFile, ...options }) => (
-    elmStaticHtml(rootPath, view, { ...baseOptions, ...options })
-      .then(cheerio.load)
-      .then(addLinkAndScript)
-      .then($ => $.html())
-      .then(html => writeFile(outFile, html))
-  ))
-)
+async function loadTitle(title) {
+  const [_, ...rest] = title.split('.').reverse()
+  const titleModule = rest.reverse().join('.')
+  const hash = createHash('MD5').update(title).digest('hex')
+  const moduleName = `Call${hash}`
+
+  const moduleTemplate = `port module ${moduleName} exposing (..)
+
+import Platform
+import ${titleModule}
+
+port title : String -> Cmd msg
+
+main =
+    Platform.program
+        { init = ( (), title ${title} )
+        , update = \\_ model -> ( model, Cmd.none )
+        , subscriptions = always Sub.none
+        }`
+
+  await writeFile(`${moduleName}.elm`, moduleTemplate)
+  await spawn('elm-make', [`${moduleName}.elm`, '--output', `${moduleName}.js`])
+
+  const module = require(`../${moduleName}`)
+  const app = module[moduleName].worker()
+
+  const pageTitle = await portSubscribe(app.ports.title)
+
+  await Promise.all([
+    deleteFile(`${moduleName}.elm`),
+    deleteFile(`${moduleName}.js`),
+  ])
+
+  return pageTitle
+}
+
+async function prerender(page) {
+  const title = await loadTitle(page.title)
+
+  const initialHtml = await elmStaticHtml(rootPath, page.view, {
+    ...baseOptions,
+    model: page.model,
+    decoder: page.decoder,
+  })
+
+  const $ = cheerio.load(initialHtml)
+
+  addLinkAndScript(title, $)
+
+  const finalHtml = $.html()
+
+  return writeFile(page.outFile, finalHtml)
+}
+
+Promise.all(pages.map(prerender))
   .then(() => console.log('All done!'))

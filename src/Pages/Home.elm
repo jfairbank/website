@@ -1,8 +1,13 @@
-module Pages.Home exposing (view)
+module Pages.Home exposing (title, view)
 
 import Element exposing (Element, column, el, image, text)
 import Element.Attributes exposing (center, px, spacing, width)
 import Styles exposing (Style(..))
+
+
+title : String
+title =
+    "Jeremy Fairbank"
 
 
 view : String -> Element Style variation msg
