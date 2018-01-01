@@ -8,7 +8,7 @@ module Styles
         )
 
 import Color exposing (Color, blue, darkGreen, red, rgb, rgba, white)
-import Style exposing (StyleSheet, prop, style)
+import Style exposing (Property, StyleSheet, opacity, prop, pseudo, style, variation)
 import Style.Border as Border
 import Style.Color as Color
 import Style.Font as Font
@@ -52,6 +52,12 @@ type Style
     | ContactSuccessMessage
     | ContactErrorMessage
     | ContactSubmissionLabel
+    | ContactError
+
+
+disabled : List (Property class variation) -> Property class variation
+disabled =
+    pseudo "disabled"
 
 
 mobileThreshold : Int
@@ -76,7 +82,7 @@ mobileResponsiveChoice current ( above, below ) =
         }
 
 
-contactMessage : Color -> List (Style.Property class variation)
+contactMessage : Color -> List (Property class variation)
 contactMessage textColor =
     [ Color.text textColor
     , Font.bold
@@ -167,6 +173,8 @@ stylesheet size =
             , Color.background blue
             , Color.text white
             , Font.size 26
+            , disabled
+                [ opacity 0.8 ]
             ]
         , style ContactSending
             [ Font.italic
@@ -180,4 +188,6 @@ stylesheet size =
             [ Font.bold
             , Font.size 24
             ]
+        , style ContactError
+            [ Color.text red ]
         ]

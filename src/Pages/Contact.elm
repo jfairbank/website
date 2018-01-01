@@ -9,10 +9,11 @@ module Pages.Contact
         , view
         )
 
-import Element exposing (Element, button, column, el, node, paragraph, text)
+import Element exposing (Element, button, column, el, node, paragraph, row, text, whenJust)
 import Element.Attributes
     exposing
-        ( attribute
+        ( alignRight
+        , fill
         , height
         , padding
         , paddingBottom
@@ -23,10 +24,12 @@ import Element.Attributes
         , width
         )
 import Element.Events exposing (onSubmit)
+import Element.Extra.Attributes exposing (disabled, name)
 import Element.Input as Input
-import FormData exposing (FormData, addParam, extractParams, serialize)
+import Form.Serialize exposing (FormData, addParam, extractParams, serialize)
+import Form.Validation as Validation exposing (FormField, Validator)
 import Http
-import Json.Decode exposing (Decoder, string)
+import Json.Decode exposing (Decoder, map, string)
 import Json.Decode.Pipeline exposing (decode, hardcoded, required)
 import RemoteData exposing (RemoteData(..), WebData)
 import Shared
@@ -34,11 +37,6 @@ import Styles exposing (Style(..))
 
 
 -- HELPERS
-
-
-name : String -> Element.Attribute variation msg
-name =
-    attribute "name"
 
 
 formBody : String -> Http.Body
@@ -52,14 +50,34 @@ submissionUrl =
 
 
 
--- MODEL
+-- CONTACT
 
 
 type alias Contact =
-    { name : String
-    , email : String
-    , message : String
+    { name : FormField
+    , email : FormField
+    , message : FormField
     }
+
+
+initialContact : Contact
+initialContact =
+    { name = Validation.initial
+    , email = Validation.initial
+    , message = Validation.initial
+    }
+
+
+decodeContact : Decoder Contact
+decodeContact =
+    decode Contact
+        |> required "name" (string |> map validateName)
+        |> required "email" (string |> map validateEmail)
+        |> required "message" (string |> map validateMessage)
+
+
+
+-- MODEL
 
 
 type alias Model =
@@ -70,21 +88,9 @@ type alias Model =
 
 initialModel : Model
 initialModel =
-    { contact =
-        { name = ""
-        , email = ""
-        , message = ""
-        }
+    { contact = initialContact
     , submission = NotAsked
     }
-
-
-decodeContact : Decoder Contact
-decodeContact =
-    decode Contact
-        |> required "name" string
-        |> required "email" string
-        |> required "message" string
 
 
 decodeModel : Decoder Model
@@ -129,35 +135,87 @@ viewLabel labelText =
         text (labelText ++ ":")
 
 
+viewError : String -> Element Style variation msg
+viewError errorMessage =
+    row None
+        [ alignRight, width fill ]
+        [ el ContactError [] (text errorMessage) ]
+
+
+type alias ViewInputBuilderF style variation msg =
+    List (Element.Attribute variation msg)
+    -> Input.Text style variation msg
+    -> Element style variation msg
+
+
+type alias ViewInputConfig msg =
+    { label : String
+    , field : FormField
+    , onChange : String -> msg
+    }
+
+
+viewInput :
+    ViewInputBuilderF Style variation msg
+    -> List (Element.Attribute variation msg)
+    -> ViewInputConfig msg
+    -> Element Style variation msg
+viewInput builder attributes config =
+    builder attributes
+        { onChange = config.onChange
+        , value = Validation.value config.field
+        , label = Input.labelAbove (viewLabel config.label)
+        , options =
+            [ Input.errorAbove
+                (config.field
+                    |> Validation.error
+                    |> flip whenJust viewError
+                )
+            ]
+        }
+
+
+contactIsValid : Contact -> Bool
+contactIsValid contact =
+    [ contact.name
+    , contact.email
+    , contact.message
+    ]
+        |> List.all Validation.isValid
+        |> Debug.log "contact valid?"
+
+
 viewForm : Contact -> Element Style variation Msg
 viewForm contact =
     node "form" <|
         column None
             [ spacing 30, onSubmit Submit, width (px 600) ]
-            [ Input.text ContactInput
+            [ viewInput (Input.text ContactInput)
                 [ name "name" ]
-                { onChange = ContactMsg << Set Name
-                , value = contact.name
-                , label = Input.labelAbove (viewLabel "Name")
-                , options = []
+                { label = "Name"
+                , field = contact.name
+                , onChange = ContactMsg << Set Name
                 }
-            , Input.email ContactInput
+            , viewInput (Input.email ContactInput)
                 [ name "email" ]
-                { onChange = ContactMsg << Set Email
-                , value = contact.email
-                , label = Input.labelAbove (viewLabel "Email")
-                , options = []
+                { label = "Email"
+                , field = contact.email
+                , onChange = ContactMsg << Set Email
                 }
-            , Input.multiline ContactMultiline
+            , viewInput (Input.multiline ContactMultiline)
                 [ name "message", height (px 300), padding 10 ]
-                { onChange = ContactMsg << Set Message
-                , value = contact.message
-                , label = Input.labelAbove (viewLabel "Message")
-                , options = []
+                { label = "Message"
+                , field = contact.message
+                , onChange = ContactMsg << Set Message
                 }
             , paragraph None
                 [ paddingTop 20 ]
-                [ button ContactSubmitButton [ paddingXY 10 8 ] (text "Send") ]
+                [ button ContactSubmitButton
+                    [ disabled (not (contactIsValid contact))
+                    , paddingXY 10 8
+                    ]
+                    (text "Send")
+                ]
             ]
 
 
@@ -166,13 +224,13 @@ viewContactMessage style message =
     el style [ paddingBottom 20 ] (text message)
 
 
-viewSubmissionSection : String -> String -> Element Style variation msg
-viewSubmissionSection labelText value =
+viewSubmissionSection : String -> FormField -> Element Style variation msg
+viewSubmissionSection labelText formField =
     column None
         [ spacing 5 ]
         [ el ContactSubmissionLabel [] <|
             text (labelText ++ ":")
-        , paragraph None [] [ text value ]
+        , paragraph None [] [ text (Validation.value formField) ]
         ]
 
 
@@ -237,9 +295,9 @@ view model =
 serializeContact : Contact -> FormData Contact
 serializeContact formData =
     serialize Contact
-        |> addParam "name" formData.name
-        |> addParam "email" formData.email
-        |> addParam "message" formData.message
+        |> addParam "name" (Validation.value formData.name) formData.name
+        |> addParam "email" (Validation.value formData.email) formData.email
+        |> addParam "message" (Validation.value formData.message) formData.message
 
 
 submit : Contact -> Cmd Msg
@@ -261,17 +319,37 @@ submit contact =
         |> Cmd.map Send
 
 
+validateName : Validator
+validateName =
+    Validation.validate
+        [ Validation.isRequired "Please provide a name." ]
+
+
+validateEmail : Validator
+validateEmail =
+    Validation.validate
+        [ Validation.isRequired "Please provide an email."
+        , Validation.isValidEmail "Please provide a valid email."
+        ]
+
+
+validateMessage : Validator
+validateMessage =
+    Validation.validate
+        [ Validation.isRequired "Please provide a message." ]
+
+
 updateContact : ContactMsg -> Contact -> Contact
 updateContact msg contact =
     case msg of
         Set Name name ->
-            { contact | name = name }
+            { contact | name = validateName name }
 
         Set Email email ->
-            { contact | email = email }
+            { contact | email = validateEmail email }
 
         Set Message message ->
-            { contact | message = message }
+            { contact | message = validateMessage message }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
