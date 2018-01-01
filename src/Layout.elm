@@ -20,11 +20,21 @@ import Element
         , text
         )
 import Element.Attributes exposing (center, fill, height, padding, paddingXY, px, spacing, width)
-import Element.Events exposing (onClick)
+import Element.Events exposing (onWithOptions)
 import Html exposing (Html, i)
 import Html.Attributes exposing (class)
+import Json.Decode exposing (succeed)
 import Styles exposing (Style(..), stylesheet)
 import Update exposing (Msg(..))
+
+
+onClickPreventDefault : msg -> Element.Attribute variation msg
+onClickPreventDefault msg =
+    onWithOptions "click"
+        { stopPropagation = False
+        , preventDefault = True
+        }
+        (succeed msg)
 
 
 viewLink : String -> String -> Element Style variation msg
@@ -33,9 +43,10 @@ viewLink url linkText =
         el None [] (text linkText)
 
 
-viewButtonLink : String -> String -> Element Style variation Msg
-viewButtonLink url linkText =
-    button ButtonLink [ onClick (Visit url) ] (text linkText)
+viewPushLink : String -> String -> Element Style variation Msg
+viewPushLink url linkText =
+    button ButtonLink [ onClickPreventDefault (Visit url) ] <|
+        viewLink url linkText
 
 
 viewBrand : Element Style variation msg
@@ -49,10 +60,8 @@ viewNav =
         [ spacing 20 ]
         { name = "Main Navigation"
         , options =
-            [ viewButtonLink "/" "Home"
-            , viewButtonLink "/talks" "Talks"
-
-            -- , viewButtonLink "/books" "Books"
+            [ viewPushLink "/" "Home"
+            , viewPushLink "/talks" "Talks"
             , viewLink "https://blog.jeremyfairbank.com" "Blog"
             ]
         }
