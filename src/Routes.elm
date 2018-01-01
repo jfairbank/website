@@ -9,6 +9,7 @@ type Route
     = Home
     | Talks
     | Books
+    | Contact
 
 
 routeParser : Url.Parser (Route -> a) a
@@ -17,6 +18,7 @@ routeParser =
         [ map Home top
         , map Talks (s "talks")
         , map Books (s "books")
+        , map Contact (s "contact")
         ]
 
 
@@ -36,6 +38,9 @@ deserializeRoute route =
 
         "Books" ->
             Just Books
+
+        "Contact" ->
+            Just Contact
 
         _ ->
             Nothing

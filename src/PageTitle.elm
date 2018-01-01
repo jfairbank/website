@@ -1,6 +1,7 @@
 port module PageTitle exposing (update)
 
 import Pages.Books as Books
+import Pages.Contact as Contact
 import Pages.Home as Home
 import Pages.Talks as Talks
 import Routes exposing (Route(..))
@@ -20,6 +21,9 @@ routeToTitle route =
 
         Just Books ->
             Books.title
+
+        Just Contact ->
+            Contact.title
 
         Nothing ->
             "Not Found"

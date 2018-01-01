@@ -7,7 +7,7 @@ module Styles
         , stylesheet
         )
 
-import Color exposing (blue, rgb, rgba, white)
+import Color exposing (Color, blue, darkGreen, red, rgb, rgba, white)
 import Style exposing (StyleSheet, prop, style)
 import Style.Border as Border
 import Style.Color as Color
@@ -37,13 +37,21 @@ type Style
     | MobileMenuNav
     | MainContent
     | ButtonLink
+    | PageHeading
     | HomeName
     | HomeTagline
-    | TalksHeading
     | TalksConference
     | TalksConferenceName
     | TalksTalkTitle
     | TalksTalkLink
+    | ContactInput
+    | ContactMultiline
+    | ContactLabel
+    | ContactSubmitButton
+    | ContactSending
+    | ContactSuccessMessage
+    | ContactErrorMessage
+    | ContactSubmissionLabel
 
 
 mobileThreshold : Int
@@ -66,6 +74,14 @@ mobileResponsiveChoice current ( above, below ) =
         , above = above
         , below = below
         }
+
+
+contactMessage : Color -> List (Style.Property class variation)
+contactMessage textColor =
+    [ Color.text textColor
+    , Font.bold
+    , Font.size 28
+    ]
 
 
 stylesheet : WindowSize a -> StyleSheet Style variation
@@ -111,6 +127,10 @@ stylesheet size =
             ]
         , style ButtonLink
             [ Color.background (rgba 0 0 0 0) ]
+        , style PageHeading
+            [ Font.size 40
+            , Font.bold
+            ]
         , style HomeName
             [ Font.size <|
                 mobileResponsiveChoice size.width ( 80, 46 )
@@ -122,10 +142,6 @@ stylesheet size =
             , Font.italic
             , Font.light
             ]
-        , style TalksHeading
-            [ Font.size 40
-            , Font.bold
-            ]
         , style TalksConference
             [ Color.background (rgb 241 241 241) ]
         , style TalksConferenceName
@@ -135,5 +151,33 @@ stylesheet size =
         , style TalksTalkLink
             [ Color.text blue
             , Font.underline
+            ]
+        , style ContactInput
+            [ Border.bottom 1
+            , Border.solid
+            ]
+        , style ContactMultiline
+            [ Border.all 1
+            , Border.solid
+            ]
+        , style ContactLabel
+            [ Font.bold ]
+        , style ContactSubmitButton
+            [ Border.rounded 4
+            , Color.background blue
+            , Color.text white
+            , Font.size 26
+            ]
+        , style ContactSending
+            [ Font.italic
+            , Font.size 40
+            ]
+        , style ContactSuccessMessage <|
+            contactMessage darkGreen
+        , style ContactErrorMessage <|
+            contactMessage red
+        , style ContactSubmissionLabel
+            [ Font.bold
+            , Font.size 24
             ]
         ]

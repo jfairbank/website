@@ -4,6 +4,7 @@ import Data.Conference exposing (Conference)
 import Data.Talk exposing (Talk)
 import Element exposing (Element, column, el, h1, h2, h3, newTab, paragraph, row, text, whenJust)
 import Element.Attributes exposing (padding, paddingBottom, spacing)
+import Shared
 import Styles exposing (Style(..))
 
 
@@ -50,7 +51,7 @@ view : List Conference -> Element Style variation msg
 view conferences =
     column None
         [ spacing 20 ]
-        [ h1 TalksHeading [] (text "Conference Talks")
+        [ Shared.viewPageHeading "Conference Talks"
         , column None
             [ spacing 30 ]
             (List.map viewConference conferences)

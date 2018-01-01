@@ -8,6 +8,7 @@ import Layout
 import Navigation exposing (Location)
 import PageTitle
 import Pages
+import Pages.Contact as Contact
 import Routes exposing (Route(..), parseLocation)
 import Update exposing (Msg(..), update)
 import Window
@@ -34,6 +35,7 @@ init flags location =
       , width = flags.width
       , height = flags.height
       , route = route
+      , contact = Contact.initialModel
       }
     , PageTitle.update route
     )
@@ -50,6 +52,9 @@ view model =
 
         Just Books ->
             Pages.viewBooks model
+
+        Just Contact ->
+            Pages.viewContact model
 
         Nothing ->
             Layout.view model

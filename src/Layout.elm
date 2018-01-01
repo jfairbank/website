@@ -76,6 +76,7 @@ navConfig =
     , options =
         [ viewPushLink "/" "Home"
         , viewPushLink "/talks" "Talks"
+        , viewPushLink "/contact" "Contact"
         , viewLink "https://blog.jeremyfairbank.com" "Blog"
         ]
     }

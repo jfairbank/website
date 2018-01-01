@@ -3,6 +3,7 @@ module Data.Model exposing (Model, decodeModel)
 import Data.Conference exposing (Conference, decodeConference)
 import Json.Decode exposing (Decoder, int, list, maybe, string)
 import Json.Decode.Pipeline exposing (custom, decode, required)
+import Pages.Contact as Contact
 import Routes exposing (Route(..), decodeRoute)
 
 
@@ -13,6 +14,7 @@ type alias Model =
     , width : Int
     , height : Int
     , route : Maybe Route
+    , contact : Contact.Model
     }
 
 
@@ -25,3 +27,4 @@ decodeModel =
         |> required "width" int
         |> required "height" int
         |> required "route" decodeRoute
+        |> required "contact" Contact.decodeModel
