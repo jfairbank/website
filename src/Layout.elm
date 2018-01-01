@@ -7,25 +7,41 @@ import Element
         , button
         , column
         , el
-        , html
         , image
         , layout
         , link
         , mainContent
         , navigation
         , navigationColumn
-        , newTab
         , row
         , sidebar
         , text
         )
-import Element.Attributes exposing (center, fill, height, padding, paddingXY, px, spacing, width)
+import Element.Attributes
+    exposing
+        ( alignRight
+        , center
+        , fill
+        , height
+        , padding
+        , paddingXY
+        , px
+        , spacing
+        , verticalCenter
+        , width
+        )
 import Element.Events exposing (onWithOptions)
-import Html exposing (Html, i)
-import Html.Attributes exposing (class)
+import Html exposing (Html)
 import Json.Decode exposing (succeed)
-import Styles exposing (Style(..), stylesheet)
+import Social exposing (IconSize(..))
+import Styles exposing (Style(..), mobileThreshold, stylesheet)
 import Update exposing (Msg(..))
+
+
+type alias NavConfig style variation msg =
+    { name : String
+    , options : List (Element style variation msg)
+    }
 
 
 onClickPreventDefault : msg -> Element.Attribute variation msg
@@ -54,42 +70,22 @@ viewBrand =
     el Brand [] (text "Jeremy Fairbank")
 
 
+navConfig : NavConfig Style variation Msg
+navConfig =
+    { name = "Main Navigation"
+    , options =
+        [ viewPushLink "/" "Home"
+        , viewPushLink "/talks" "Talks"
+        , viewLink "https://blog.jeremyfairbank.com" "Blog"
+        ]
+    }
+
+
 viewNav : Element Style variation Msg
 viewNav =
     navigationColumn None
         [ spacing 20 ]
-        { name = "Main Navigation"
-        , options =
-            [ viewPushLink "/" "Home"
-            , viewPushLink "/talks" "Talks"
-            , viewLink "https://blog.jeremyfairbank.com" "Blog"
-            ]
-        }
-
-
-viewIcon : String -> Element Style variation msg
-viewIcon name =
-    html <|
-        i [ class ("fa fa-" ++ name) ] []
-
-
-viewIconLink : String -> String -> Element Style variation msg
-viewIconLink name url =
-    newTab url <|
-        viewIcon name
-
-
-viewSocialLinks : Element Style variation msg
-viewSocialLinks =
-    navigation None
-        [ spacing 15 ]
-        { name = "Social Links"
-        , options =
-            [ viewIconLink "twitter" "https://twitter.com/elpapapollo"
-            , viewIconLink "github" "https://github.com/jfairbank"
-            , viewIconLink "linkedin-square" "https://www.linkedin.com/in/jfairbank"
-            ]
-        }
+        navConfig
 
 
 viewProgrammingElmAd : String -> Element Style variation msg
@@ -119,16 +115,50 @@ viewSidebar programmingElmBetaUrl =
         [ padding 20, spacing 20, width (px 250) ]
         [ viewBrand
         , viewNav
-        , viewSocialLinks
+        , Social.viewLinks
+            { spacing = 15
+            , iconSize = Small
+            }
         , viewProgrammingElmAd programmingElmBetaUrl
+        ]
+
+
+viewMobileNav : Element Style variation Msg
+viewMobileNav =
+    navigation MobileMenuNav [ spacing 30, width fill ] navConfig
+
+
+viewMobileMenu : Element Style variation Msg
+viewMobileMenu =
+    row MobileMenu
+        [ padding 20, spacing 40, verticalCenter ]
+        [ column MobileMenuBrand
+            [ alignRight ]
+            [ text "Jeremy"
+            , text "Fairbank"
+            ]
+        , viewMobileNav
         ]
 
 
 view : Model -> Element Style variation Msg -> Html Msg
 view model child =
-    layout stylesheet <|
-        row None
-            [ height fill ]
-            [ viewSidebar model.programmingElmBetaUrl
-            , mainContent MainContent [ padding 20 ] child
-            ]
+    let
+        pageContent =
+            mainContent MainContent [ padding 20 ] child
+
+        content =
+            if model.width >= mobileThreshold then
+                row Site
+                    [ height fill ]
+                    [ viewSidebar model.programmingElmBetaUrl
+                    , pageContent
+                    ]
+            else
+                column Site
+                    [ height fill ]
+                    [ viewMobileMenu
+                    , pageContent
+                    ]
+    in
+    layout (stylesheet model) content

@@ -2,7 +2,7 @@ module Pages.Talks exposing (title, view)
 
 import Data.Conference exposing (Conference)
 import Data.Talk exposing (Talk)
-import Element exposing (Element, column, el, h1, h2, h3, newTab, row, text, whenJust)
+import Element exposing (Element, column, el, h1, h2, h3, newTab, paragraph, row, text, whenJust)
 import Element.Attributes exposing (padding, paddingBottom, spacing)
 import Styles exposing (Style(..))
 
@@ -22,7 +22,9 @@ viewTalk : Talk -> Element Style variation msg
 viewTalk talk =
     column None
         [ spacing 5 ]
-        [ h3 TalksTalkTitle [] (text talk.title)
+        [ paragraph None
+            []
+            [ h3 TalksTalkTitle [] (text talk.title) ]
         , row None
             [ spacing 20 ]
             [ whenJust talk.videoUrl (viewLink "Video")
@@ -35,7 +37,9 @@ viewConference : Conference -> Element Style variation msg
 viewConference conference =
     column TalksConference
         [ padding 20 ]
-        [ h2 TalksConferenceName [ paddingBottom 10 ] (text conference.name)
+        [ paragraph None
+            []
+            [ h2 TalksConferenceName [ paddingBottom 10 ] (text conference.name) ]
         , column None
             [ spacing 20 ]
             (List.map viewTalk conference.talks)

@@ -15,7 +15,7 @@ import Update exposing (Msg)
 viewHome : Model -> Html Msg
 viewHome model =
     Layout.view model <|
-        el None [ center ] (Home.view model.avatarUrl)
+        el None [ center ] (Home.view model)
 
 
 viewTalks : Model -> Html Msg

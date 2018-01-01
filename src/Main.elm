@@ -10,6 +10,7 @@ import PageTitle
 import Pages
 import Routes exposing (Route(..), parseLocation)
 import Update exposing (Msg(..), update)
+import Window
 
 
 type alias Flags =
@@ -55,11 +56,16 @@ view model =
                 (text "404 Not Found")
 
 
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Window.resizes Resize
+
+
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags NewUrl
         { init = init
         , view = view
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }
