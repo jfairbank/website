@@ -182,7 +182,6 @@ contactIsValid contact =
     , contact.message
     ]
         |> List.all Validation.isValid
-        |> Debug.log "contact valid?"
 
 
 viewForm : Contact -> Element Style variation Msg
@@ -354,7 +353,7 @@ updateContact msg contact =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         ContactMsg contactMsg ->
             ( { model | contact = updateContact contactMsg model.contact }
             , Cmd.none
