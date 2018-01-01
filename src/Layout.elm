@@ -1,5 +1,6 @@
 module Layout exposing (view)
 
+import Data.Model exposing (Model)
 import Element
     exposing
         ( Element
@@ -114,11 +115,11 @@ viewSidebar programmingElmBetaUrl =
         ]
 
 
-view : String -> Element Style variation Msg -> Html Msg
-view programmingElmBetaUrl child =
+view : Model -> Element Style variation Msg -> Html Msg
+view model child =
     layout stylesheet <|
         row None
             [ height fill ]
-            [ viewSidebar programmingElmBetaUrl
+            [ viewSidebar model.programmingElmBetaUrl
             , mainContent MainContent [ padding 20 ] child
             ]

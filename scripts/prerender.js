@@ -26,25 +26,34 @@ const buildDir = path.resolve(rootPath, 'build')
 const programmingElmBetaUrl = manifest['static/media/programming-elm-beta.jpg']
 const avatarUrl = manifest['static/media/avatar.png']
 
+const baseModel = {
+  programmingElmBetaUrl,
+  avatarUrl,
+  conferences,
+  width: 1920,
+  height: 960,
+}
+
+const decoder = 'Data.Model.decodeModel'
+
 const pages = [
   {
     title: 'Pages.Home.title',
-    view: 'Prerender.viewHome',
+    view: 'Pages.viewHome',
+    route: 'Home',
     outFile: path.join(buildDir, 'index.html'),
-    model: { programmingElmBetaUrl, avatarUrl },
-    decoder: 'Prerender.decodeHome',
   },
 
   {
     title: 'Pages.Talks.title',
-    view: 'Prerender.viewTalks',
+    view: 'Pages.viewTalks',
+    route: 'Talks',
     outFile: path.join(buildDir, 'talks.html'),
-    model: { programmingElmBetaUrl, conferences },
-    decoder: 'Prerender.decodeTalks',
   },
 ]
 
 const baseOptions = {
+  decoder,
   newLines: false,
   indent: 0,
 }
@@ -116,11 +125,15 @@ main =
 async function prerender(page) {
   const title = await loadTitle(page.title)
 
-  const initialHtml = await elmStaticHtml(rootPath, page.view, {
+  const options = {
     ...baseOptions,
-    model: page.model,
-    decoder: page.decoder,
-  })
+    model: {
+      ...baseModel,
+      route: page.route,
+    },
+  }
+
+  const initialHtml = await elmStaticHtml(rootPath, page.view, options)
 
   const $ = cheerio.load(initialHtml)
 

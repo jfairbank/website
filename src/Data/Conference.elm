@@ -20,8 +20,3 @@ decodeConference =
         |> required "url" string
         |> required "location" string
         |> required "talks" (list decodeTalk)
-
-
-decodeConferences : Decoder (List Conference)
-decodeConferences =
-    list decodeConference

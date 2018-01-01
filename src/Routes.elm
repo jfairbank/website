@@ -1,5 +1,6 @@
-module Routes exposing (Route(..), parseLocation)
+module Routes exposing (Route(..), decodeRoute, parseLocation)
 
+import Json.Decode as Decode exposing (Decoder)
 import Navigation exposing (Location)
 import UrlParser as Url exposing (map, oneOf, s, top)
 
@@ -22,3 +23,24 @@ routeParser =
 parseLocation : Location -> Maybe Route
 parseLocation location =
     Url.parsePath routeParser location
+
+
+deserializeRoute : String -> Maybe Route
+deserializeRoute route =
+    case route of
+        "Home" ->
+            Just Home
+
+        "Talks" ->
+            Just Talks
+
+        "Books" ->
+            Just Books
+
+        _ ->
+            Nothing
+
+
+decodeRoute : Decoder (Maybe Route)
+decodeRoute =
+    Decode.map deserializeRoute Decode.string

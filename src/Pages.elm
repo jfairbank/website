@@ -1,6 +1,6 @@
 module Pages exposing (viewBooks, viewHome, viewTalks)
 
-import Data.Conference exposing (Conference)
+import Data.Model exposing (Model)
 import Element exposing (el)
 import Element.Attributes exposing (center)
 import Html exposing (Html)
@@ -12,18 +12,18 @@ import Styles exposing (Style(..))
 import Update exposing (Msg)
 
 
-viewHome : String -> String -> Html Msg
-viewHome programmingElmBetaUrl avatarUrl =
-    Layout.view programmingElmBetaUrl <|
-        el None [ center ] (Home.view avatarUrl)
+viewHome : Model -> Html Msg
+viewHome model =
+    Layout.view model <|
+        el None [ center ] (Home.view model.avatarUrl)
 
 
-viewTalks : String -> List Conference -> Html Msg
-viewTalks programmingElmBetaUrl =
-    Layout.view programmingElmBetaUrl
-        << Talks.view
+viewTalks : Model -> Html Msg
+viewTalks model =
+    Layout.view model <|
+        Talks.view model.conferences
 
 
-viewBooks : String -> Html Msg
-viewBooks programmingElmBetaUrl =
-    Layout.view programmingElmBetaUrl Books.view
+viewBooks : Model -> Html Msg
+viewBooks model =
+    Layout.view model Books.view

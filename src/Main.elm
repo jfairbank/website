@@ -16,6 +16,8 @@ type alias Flags =
     { avatarUrl : String
     , programmingElmBetaUrl : String
     , conferences : List Conference
+    , width : Int
+    , height : Int
     }
 
 
@@ -28,6 +30,8 @@ init flags location =
     ( { avatarUrl = flags.avatarUrl
       , programmingElmBetaUrl = flags.programmingElmBetaUrl
       , conferences = flags.conferences
+      , width = flags.width
+      , height = flags.height
       , route = route
       }
     , PageTitle.update route
@@ -38,16 +42,16 @@ view : Model -> Html Msg
 view model =
     case model.route of
         Just Home ->
-            Pages.viewHome model.programmingElmBetaUrl model.avatarUrl
+            Pages.viewHome model
 
         Just Talks ->
-            Pages.viewTalks model.programmingElmBetaUrl model.conferences
+            Pages.viewTalks model
 
         Just Books ->
-            Pages.viewBooks model.programmingElmBetaUrl
+            Pages.viewBooks model
 
         Nothing ->
-            Layout.view model.programmingElmBetaUrl
+            Layout.view model
                 (text "404 Not Found")
 
 

@@ -9,6 +9,8 @@ const app = Main.embed(document.getElementById('root'), {
   avatarUrl,
   programmingElmBetaUrl,
   conferences,
+  width: window.innerWidth,
+  height: window.innerHeight,
 })
 
 app.ports.title.subscribe((title) => {
