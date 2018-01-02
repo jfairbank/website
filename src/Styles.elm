@@ -122,6 +122,11 @@ stylesheet size =
         , style MobileMenuBrand
             [ Font.bold
             , Font.size 18
+
+            -- These two rules are workarounds to force the mobile brand text
+            -- inside a paragraph to be aligned to the right
+            , prop "display" "inline-block !important"
+            , prop "text-align" "right"
             ]
         , style MobileMenuNav
             [ Font.size 22 ]

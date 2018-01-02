@@ -12,6 +12,7 @@ import Element
         , mainContent
         , navigation
         , navigationColumn
+        , paragraph
         , row
         , sidebar
         , text
@@ -149,21 +150,16 @@ viewMobileNav =
             ]
 
 
-viewMobileBrand : Element Style variation Msg
-viewMobileBrand =
-    viewPushLink None "/" <|
-        column MobileMenuBrand
-            [ alignRight ]
-            [ text "Jeremy"
-            , text "Fairbank"
-            ]
-
-
 viewMobileMenu : Element Style variation Msg
 viewMobileMenu =
     row MobileMenu
         [ padding 20, spacing 40, verticalCenter ]
-        [ viewMobileBrand
+        [ paragraph None
+            [ width (px 75) ]
+            [ viewPushLink None "/" <|
+                el MobileMenuBrand [] <|
+                    text "Jeremy Fairbank"
+            ]
         , viewMobileNav
         ]
 
