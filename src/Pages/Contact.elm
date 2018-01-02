@@ -26,10 +26,10 @@ import Element.Attributes
 import Element.Events exposing (onSubmit)
 import Element.Extra.Attributes exposing (disabled, name)
 import Element.Input as Input
-import Form.Serialize exposing (FormData, addParam, extractParams, serialize)
+import Form.Serialize exposing (FormData, addParam, serialize, toJson)
 import Form.Validation as Validation exposing (FormField, Validator)
 import Http
-import Json.Decode exposing (Decoder, map, string)
+import Json.Decode exposing (Decoder, map, string, succeed)
 import Json.Decode.Pipeline exposing (decode, hardcoded, required)
 import RemoteData exposing (RemoteData(..), WebData)
 import Shared
@@ -82,7 +82,7 @@ decodeContact =
 
 type alias Model =
     { contact : Contact
-    , submission : WebData String
+    , submission : WebData ()
     }
 
 
@@ -117,7 +117,7 @@ type ContactMsg
 type Msg
     = ContactMsg ContactMsg
     | Submit
-    | Send (WebData String)
+    | Send (WebData ())
 
 
 
@@ -292,28 +292,23 @@ view model =
 
 
 serializeContact : Contact -> FormData Contact
-serializeContact formData =
-    serialize Contact
-        |> addParam "name" (Validation.value formData.name) formData.name
-        |> addParam "email" (Validation.value formData.email) formData.email
-        |> addParam "message" (Validation.value formData.message) formData.message
+serializeContact contact =
+    serialize Contact contact
+        |> addParam "name" .name Validation.value
+        |> addParam "email" .email Validation.value
+        |> addParam "message" .message Validation.value
 
 
 submit : Contact -> Cmd Msg
 submit contact =
-    Http.request
-        { method = "POST"
-        , headers = []
-        , url = submissionUrl
-        , body =
+    let
+        body =
             contact
                 |> serializeContact
-                |> extractParams
-                |> formBody
-        , expect = Http.expectString
-        , timeout = Nothing
-        , withCredentials = False
-        }
+                |> toJson
+                |> Http.jsonBody
+    in
+    Http.post submissionUrl body (succeed ())
         |> RemoteData.sendRequest
         |> Cmd.map Send
 

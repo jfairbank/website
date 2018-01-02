@@ -1,24 +1,38 @@
-module Form.Serialize exposing (FormData, addParam, extractParams, serialize)
+module Form.Serialize exposing (FormData, addParam, serialize, toJson)
+
+import Json.Encode exposing (Value, object, string)
 
 
-type alias Params =
-    String
+type InternalFormData a data
+    = InternalFormData (List ( String, Value )) a data
 
 
-type FormData a
-    = FormData Params a
+type alias FormData a =
+    InternalFormData a a
 
 
-serialize : a -> FormData a
+serialize : a -> data -> InternalFormData a data
 serialize =
-    FormData ""
+    InternalFormData []
 
 
-addParam : String -> String -> a -> FormData (a -> b) -> FormData b
-addParam name serializedValue value (FormData params f) =
-    FormData (params ++ "&" ++ name ++ "=" ++ serializedValue) (f value)
+addParam :
+    String
+    -> (data -> value)
+    -> (value -> String)
+    -> InternalFormData (value -> a) data
+    -> InternalFormData a data
+addParam name extractValue serializeValue (InternalFormData fields f data) =
+    let
+        value =
+            extractValue data
+
+        newField =
+            ( name, string (serializeValue value) )
+    in
+    InternalFormData (newField :: fields) (f value) data
 
 
-extractParams : FormData a -> Params
-extractParams (FormData params _) =
-    params
+toJson : InternalFormData a data -> Value
+toJson (InternalFormData fields _ _) =
+    object fields
