@@ -25,7 +25,7 @@ viewTalk talk =
         [ spacing 5 ]
         [ paragraph None
             []
-            [ h3 TalksTalkTitle [] (text talk.title) ]
+            [ h3 None [] (text talk.title) ]
         , row None
             [ spacing 20 ]
             [ whenJust talk.videoUrl (viewLink "Video")

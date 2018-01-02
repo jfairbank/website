@@ -41,7 +41,6 @@ type Style
     | HomeTagline
     | TalksConference
     | TalksConferenceName
-    | TalksTalkTitle
     | TalksTalkLink
     | ContactInput
     | ContactMultiline
@@ -92,7 +91,8 @@ contactMessage textColor =
 stylesheet : WindowSize a -> StyleSheet Style variation
 stylesheet size =
     Style.styleSheet
-        [ style Site
+        [ style None []
+        , style Site
             [ Font.typeface
                 [ Font.font "Source Sans Pro"
                 , Font.sansSerif
