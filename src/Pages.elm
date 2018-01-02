@@ -33,4 +33,4 @@ viewBooks model =
 viewContact : Model -> Html Msg
 viewContact model =
     Layout.view model <|
-        Element.map ContactMsg (Contact.view model.contact)
+        Element.map ContactMsg (Contact.view model.width model.contact)

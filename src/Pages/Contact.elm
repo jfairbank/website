@@ -13,6 +13,7 @@ import Element exposing (Element, button, column, el, node, paragraph, row, text
 import Element.Attributes
     exposing
         ( alignRight
+        , content
         , fill
         , height
         , padding
@@ -33,7 +34,7 @@ import Json.Decode exposing (Decoder, map, string, succeed)
 import Json.Decode.Pipeline exposing (decode, hardcoded, required)
 import RemoteData exposing (RemoteData(..), WebData)
 import Shared
-import Styles exposing (Style(..))
+import Styles exposing (Style(..), mobileResponsiveChoice, mobileThreshold)
 
 
 -- HELPERS
@@ -47,6 +48,17 @@ formBody =
 submissionUrl : String
 submissionUrl =
     "https://formspree.io/contact@mg.jeremyfairbank.com"
+
+
+maxContentWidth : Int -> Element.Attribute variation msg
+maxContentWidth deviceWidth =
+    width <|
+        if deviceWidth >= 900 then
+            px 600
+        else if deviceWidth < mobileThreshold then
+            fill
+        else
+            px 500
 
 
 
@@ -184,11 +196,25 @@ contactIsValid contact =
         |> List.all Validation.isValid
 
 
-viewForm : Contact -> Element Style variation Msg
-viewForm contact =
+viewSubmitButton : Int -> Contact -> Element Style variation msg
+viewSubmitButton deviceWidth contact =
+    paragraph None
+        [ paddingTop 20 ]
+        [ button ContactSubmitButton
+            [ disabled (not (contactIsValid contact))
+            , paddingXY 10 8
+            , width <|
+                mobileResponsiveChoice deviceWidth ( content, fill )
+            ]
+            (text "Send")
+        ]
+
+
+viewForm : Int -> Contact -> Element Style variation Msg
+viewForm deviceWidth contact =
     node "form" <|
         column None
-            [ spacing 30, onSubmit Submit, width (px 600) ]
+            [ spacing 30, onSubmit Submit ]
             [ viewInput (Input.text ContactInput)
                 [ name "name" ]
                 { label = "Name"
@@ -207,14 +233,7 @@ viewForm contact =
                 , field = contact.message
                 , onChange = ContactMsg << Set Message
                 }
-            , paragraph None
-                [ paddingTop 20 ]
-                [ button ContactSubmitButton
-                    [ disabled (not (contactIsValid contact))
-                    , paddingXY 10 8
-                    ]
-                    (text "Send")
-                ]
+            , viewSubmitButton deviceWidth contact
             ]
 
 
@@ -236,7 +255,7 @@ viewSubmissionSection labelText formField =
 viewSubmission : Contact -> Element Style variation msg
 viewSubmission contact =
     column None
-        [ spacing 20, width (px 600) ]
+        [ spacing 20 ]
         [ viewSubmissionSection "Name" contact.name
         , viewSubmissionSection "Email" contact.email
         , viewSubmissionSection "Message" contact.message
@@ -252,38 +271,39 @@ viewSuccess contact =
         ]
 
 
-viewFailure : Contact -> Element Style variation Msg
-viewFailure contact =
+viewFailure : Int -> Contact -> Element Style variation Msg
+viewFailure deviceWidth contact =
     column None
         []
         [ viewContactMessage ContactErrorMessage
             "There was a problem sending. Please try again."
-        , viewForm contact
+        , viewForm deviceWidth contact
         ]
 
 
-viewContent : Model -> Element Style variation Msg
-viewContent model =
+viewContent : Int -> Model -> Element Style variation Msg
+viewContent deviceWidth model =
     case model.submission of
         NotAsked ->
-            viewForm model.contact
+            viewForm deviceWidth model.contact
 
         Loading ->
             el ContactSending [] (text "Sending...")
 
         Failure _ ->
-            viewFailure model.contact
+            viewFailure deviceWidth model.contact
 
         Success _ ->
             viewSuccess model.contact
 
 
-view : Model -> Element Style variation Msg
-view model =
+view : Int -> Model -> Element Style variation Msg
+view deviceWidth model =
     column None
         [ spacing 40 ]
         [ Shared.viewPageHeading "Contact Jeremy"
-        , viewContent model
+        , el None [ maxContentWidth deviceWidth ] <|
+            viewContent deviceWidth model
         ]
 
 
