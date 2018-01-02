@@ -355,7 +355,9 @@ update msg model =
             )
 
         Submit ->
-            ( model, submit model.contact )
+            ( { model | submission = Loading }
+            , submit model.contact
+            )
 
         Send result ->
             ( { model | submission = result }
