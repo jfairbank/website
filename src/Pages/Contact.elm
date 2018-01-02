@@ -40,11 +40,6 @@ import Styles exposing (Style(..), mobileResponsiveChoice, mobileThreshold)
 -- HELPERS
 
 
-formBody : String -> Http.Body
-formBody =
-    Http.stringBody "application/x-www-form-urlencoded"
-
-
 submissionUrl : String
 submissionUrl =
     "https://formspree.io/contact@mg.jeremyfairbank.com"
