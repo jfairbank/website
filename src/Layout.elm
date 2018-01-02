@@ -4,7 +4,6 @@ import Data.Model exposing (Model)
 import Element
     exposing
         ( Element
-        , button
         , column
         , el
         , image
@@ -53,40 +52,56 @@ onClickPreventDefault msg =
         (succeed msg)
 
 
-viewLink : String -> String -> Element Style variation msg
-viewLink url linkText =
+viewLink : String -> Element Style variation msg -> Element Style variation msg
+viewLink url linkEl =
     link url <|
-        el None [] (text linkText)
+        el None [] linkEl
 
 
-viewPushLink : String -> String -> Element Style variation Msg
-viewPushLink url linkText =
-    button ButtonLink [ onClickPreventDefault (Visit url) ] <|
-        viewLink url linkText
+viewPushLink : Style -> String -> Element Style variation Msg -> Element Style variation Msg
+viewPushLink style url linkEl =
+    el style [ onClickPreventDefault (Visit url) ] <|
+        viewLink url linkEl
 
 
-viewBrand : Element Style variation msg
+viewBrand : Element Style variation Msg
 viewBrand =
-    el Brand [] (text "Jeremy Fairbank")
+    viewPushLink Brand "/" (text "Jeremy Fairbank")
 
 
-navConfig : NavConfig Style variation Msg
-navConfig =
+type alias NavOptions variation =
+    { home : Element Style variation Msg
+    , talks : Element Style variation Msg
+    , contact : Element Style variation Msg
+    , blog : Element Style variation Msg
+    }
+
+
+navOptions : NavOptions variation
+navOptions =
+    { home = viewPushLink None "/" (text "Home")
+    , talks = viewPushLink None "/talks" (text "Talks")
+    , contact = viewPushLink None "/contact" (text "Contact")
+    , blog = viewLink "https://blog.jeremyfairbank.com" (text "Blog")
+    }
+
+
+navConfig : List (Element Style variation Msg) -> NavConfig Style variation Msg
+navConfig options =
     { name = "Main Navigation"
-    , options =
-        [ viewPushLink "/" "Home"
-        , viewPushLink "/talks" "Talks"
-        , viewPushLink "/contact" "Contact"
-        , viewLink "https://blog.jeremyfairbank.com" "Blog"
-        ]
+    , options = options
     }
 
 
 viewNav : Element Style variation Msg
 viewNav =
-    navigationColumn None
-        [ spacing 20 ]
+    navigationColumn None [ spacing 20 ] <|
         navConfig
+            [ navOptions.home
+            , navOptions.talks
+            , navOptions.contact
+            , navOptions.blog
+            ]
 
 
 viewProgrammingElmAd : String -> Element Style variation msg
@@ -126,18 +141,29 @@ viewSidebar programmingElmBetaUrl =
 
 viewMobileNav : Element Style variation Msg
 viewMobileNav =
-    navigation MobileMenuNav [ spacing 30, width fill ] navConfig
+    navigation MobileMenuNav [ spacing 30, width fill ] <|
+        navConfig
+            [ navOptions.talks
+            , navOptions.contact
+            , navOptions.blog
+            ]
+
+
+viewMobileBrand : Element Style variation Msg
+viewMobileBrand =
+    viewPushLink None "/" <|
+        column MobileMenuBrand
+            [ alignRight ]
+            [ text "Jeremy"
+            , text "Fairbank"
+            ]
 
 
 viewMobileMenu : Element Style variation Msg
 viewMobileMenu =
     row MobileMenu
         [ padding 20, spacing 40, verticalCenter ]
-        [ column MobileMenuBrand
-            [ alignRight ]
-            [ text "Jeremy"
-            , text "Fairbank"
-            ]
+        [ viewMobileBrand
         , viewMobileNav
         ]
 

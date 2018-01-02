@@ -36,7 +36,6 @@ type Style
     | MobileMenuBrand
     | MobileMenuNav
     | MainContent
-    | ButtonLink
     | PageHeading
     | HomeName
     | HomeTagline
@@ -131,8 +130,6 @@ stylesheet size =
             , prop "overflow" <|
                 mobileResponsiveChoice size.width ( "auto", "visible" )
             ]
-        , style ButtonLink
-            [ Color.background (rgba 0 0 0 0) ]
         , style PageHeading
             [ Font.size 40
             , Font.bold
