@@ -32,6 +32,13 @@ const baseModel = {
   conferences,
   width: 1920,
   height: 960,
+  contact: {
+    contact: {
+      name: '',
+      email: '',
+      message: '',
+    },
+  },
 }
 
 const decoder = 'Data.Model.decodeModel'
@@ -49,6 +56,13 @@ const pages = [
     view: 'Pages.viewTalks',
     route: 'Talks',
     outFile: path.join(buildDir, 'talks.html'),
+  },
+
+  {
+    title: 'Pages.Contact.title',
+    view: 'Pages.viewContact',
+    route: 'Contact',
+    outFile: path.join(buildDir, 'contact.html'),
   },
 ]
 

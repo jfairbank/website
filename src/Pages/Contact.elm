@@ -82,10 +82,15 @@ initialContact =
 
 decodeContact : Decoder Contact
 decodeContact =
+    let
+        -- Use initial here to not have validation error messages in prerendered content
+        decodeInitial =
+            succeed Validation.initial
+    in
     decode Contact
-        |> required "name" (string |> map validateName)
-        |> required "email" (string |> map validateEmail)
-        |> required "message" (string |> map validateMessage)
+        |> required "name" decodeInitial
+        |> required "email" decodeInitial
+        |> required "message" decodeInitial
 
 
 
