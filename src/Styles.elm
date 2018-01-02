@@ -61,7 +61,7 @@ disabled =
 
 mobileThreshold : Int
 mobileThreshold =
-    820
+    840
 
 
 responsiveChoice : Int -> ResponsiveChoiceConfig a -> a

@@ -177,7 +177,7 @@ view model child =
         content =
             if model.width >= mobileThreshold then
                 row Site
-                    [ height fill ]
+                    [ height fill, spacing 20 ]
                     [ viewSidebar model.programmingElmBetaUrl
                     , pageContent
                     ]
