@@ -168,12 +168,12 @@ view : Model -> Element Style variation Msg -> Html Msg
 view model child =
     let
         pageContent =
-            mainContent MainContent [ padding 20 ] child
+            mainContent MainContent [ paddingXY 40 20 ] child
 
         content =
             if model.width >= mobileThreshold then
                 row Site
-                    [ height fill, spacing 20 ]
+                    [ height fill ]
                     [ viewSidebar model.programmingElmBetaUrl
                     , pageContent
                     ]
