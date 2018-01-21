@@ -45,12 +45,16 @@ viewIconLink iconSize name url =
 
 viewLinks : Config -> Element Style variation msg
 viewLinks config =
+    let
+        viewIcon =
+            viewIconLink config.iconSize
+    in
     navigation None
         [ spacing config.spacing ]
         { name = "Social Links"
         , options =
-            [ viewIconLink config.iconSize "twitter" "https://twitter.com/elpapapollo"
-            , viewIconLink config.iconSize "github" "https://github.com/jfairbank"
-            , viewIconLink config.iconSize "linkedin-square" "https://www.linkedin.com/in/jfairbank"
+            [ viewIcon "twitter" "https://twitter.com/elpapapollo"
+            , viewIcon "github" "https://github.com/jfairbank"
+            , viewIcon "linkedin-square" "https://www.linkedin.com/in/jfairbank"
             ]
         }
