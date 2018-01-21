@@ -55,6 +55,7 @@ viewLinks config =
         , options =
             [ viewIcon "twitter" "https://twitter.com/elpapapollo"
             , viewIcon "github" "https://github.com/jfairbank"
+            , viewIcon "youtube" "https://www.youtube.com/c/JeremyFairbank"
             , viewIcon "linkedin-square" "https://www.linkedin.com/in/jfairbank"
             ]
         }
