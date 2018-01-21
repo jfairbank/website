@@ -1,6 +1,6 @@
 module Social exposing (IconSize(..), viewLinks)
 
-import Element exposing (Element, html, navigation, newTab)
+import Element exposing (Element, el, html, navigation, newTab)
 import Element.Attributes exposing (spacing)
 import Html exposing (Html, i)
 import Html.Attributes exposing (class)
@@ -33,8 +33,9 @@ viewIcon iconSize name =
                 Large ->
                     "fa-3x"
     in
-    html <|
-        i [ class ("fa fa-" ++ name ++ " " ++ sizeClass) ] []
+    el SocialIconLink [] <|
+        html <|
+            i [ class ("fa fa-" ++ name ++ " " ++ sizeClass) ] []
 
 
 viewIconLink : IconSize -> String -> String -> Element Style variation msg

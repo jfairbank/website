@@ -53,21 +53,31 @@ onClickPreventDefault msg =
         (succeed msg)
 
 
-viewLink : String -> Element Style variation msg -> Element Style variation msg
-viewLink url linkEl =
+viewLink : Style -> String -> Element Style variation msg -> Element Style variation msg
+viewLink style url linkEl =
     link url <|
-        el None [] linkEl
+        el style [] linkEl
 
 
 viewPushLink : Style -> String -> Element Style variation Msg -> Element Style variation Msg
 viewPushLink style url linkEl =
-    el style [ onClickPreventDefault (Visit url) ] <|
-        viewLink url linkEl
+    el None [ onClickPreventDefault (Visit url) ] <|
+        viewLink style url linkEl
 
 
 viewBrand : Element Style variation Msg
 viewBrand =
     viewPushLink Brand "/" (text "Jeremy Fairbank")
+
+
+viewMenuLink : String -> Element Style variation msg -> Element Style variation msg
+viewMenuLink =
+    viewLink MenuLink
+
+
+viewMenuPushLink : String -> Element Style variation Msg -> Element Style variation Msg
+viewMenuPushLink =
+    viewPushLink MenuLink
 
 
 type alias NavOptions variation =
@@ -80,10 +90,10 @@ type alias NavOptions variation =
 
 navOptions : NavOptions variation
 navOptions =
-    { home = viewPushLink None "/" (text "Home")
-    , talks = viewPushLink None "/talks" (text "Talks")
-    , contact = viewPushLink None "/contact" (text "Contact")
-    , blog = viewLink "https://blog.jeremyfairbank.com" (text "Blog")
+    { home = viewMenuPushLink "/" (text "Home")
+    , talks = viewMenuPushLink "/talks" (text "Talks")
+    , contact = viewMenuPushLink "/contact" (text "Contact")
+    , blog = viewMenuLink "https://blog.jeremyfairbank.com" (text "Blog")
     }
 
 

@@ -8,7 +8,7 @@ module Styles
         )
 
 import Color exposing (Color, blue, darkGreen, red, rgb, rgba, white)
-import Style exposing (Property, StyleSheet, opacity, prop, pseudo, style, variation)
+import Style exposing (Property, StyleSheet, hover, opacity, prop, pseudo, style, variation)
 import Style.Border as Border
 import Style.Color as Color
 import Style.Font as Font
@@ -32,6 +32,8 @@ type Style
     | ProgrammingElmSideAd
     | ProgrammingElmSideAdButton
     | Brand
+    | MenuLink
+    | SocialIconLink
     | MobileMenu
     | MobileMenuBrand
     | MobileMenuNav
@@ -116,6 +118,14 @@ stylesheet size =
         , style Brand
             [ Font.size 26
             , Font.bold
+            ]
+        , style MenuLink
+            [ hover
+                [ Color.text blue ]
+            ]
+        , style SocialIconLink
+            [ hover
+                [ Color.text blue ]
             ]
         , style MobileMenu
             [ Color.background (rgb 241 241 241) ]
