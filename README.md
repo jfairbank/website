@@ -2,7 +2,7 @@
 
 This repo contains the source for [jeremyfairbank.com](https://jeremyfairbank.com).
 
-## Technology
+### Technology ###
 
 * This site is a single-page PWA built with Elm.
 * It was bootstrapped with [create-elm-app](https://github.com/halfzebra/create-elm-app).
